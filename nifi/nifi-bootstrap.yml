@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nifi-bootstrap
+data:
+  run.sh: |-
+    echo "Waiting to run nslookup..."
+    sleep 30
+    echo `nslookup nifi | sed -e 's/Address.*://' | tail -n +3` | sed -e 's/l /l\n/g' >>  /tmphosts
+    sed -i 's/nifi-0.nifi.default.svc.cluster.local/nifi-0.nifi.default.svc.cluster.local nifi-0/g' /tmphosts
+    cat /tmphosts >> /etc/hosts
+    mkdir -p /k8s/nifi
+    chmod 777 /k8s/nifi
+    bash /opt/nifi/start_nifi.sh

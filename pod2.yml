@@ -1,0 +1,30 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: nginx2
+  labels:
+    app: sv
+spec:
+  volumes:
+    - name: task-pv-storage
+      persistentVolumeClaim:
+       claimName: task-pv-claim
+  containers:
+    - name: nginx-dep
+      image: richarvey/nginx-php-fpm
+      ports:
+        - containerPort: 80
+          name: nginx
+      resources:
+        limits:
+          cpu: "1"
+          memory: "256Mi"
+        requests:
+          cpu: "0.5"
+          memory: "128Mi"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: task-pv-storage
+  dnsConfig:
+    nameservers:
+      - 8.8.8.8

@@ -1,0 +1,36 @@
+bcdedit /set {default} recoveryenabled No
+copy c:\windows\system32\config\RegBack\* c:\windows\system32\config
+
+kubectl label nodes A node_type=foo #set node name
+nodeSelector:
+    node_type: node   # chỉ chạy pod trên các node
+
+kubectl proxy --port=443 --address='192.168.1.202' --accept-hosts="^*$"   # mở port+ip cho dashboard
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep kubernetes-dashboard-minimal | awk '{print $1}')
+
+# tạo token mới khi node join vào cluster (vì token để lâu sẽ hết hạn)
+kubeadm create token  # tạo token trên master, sau đó thay token cho token cũ rồi run command bên dưới trên node
+VD: kubeadm join 192.168.1.219:6443 --token 8pze9q.qvqxm905fcijzyzt --discovery-token-ca-cert-hash sha256:4836150d9f66114c84dd00c6026e99e739dca0083f5098d082fd1d58d226128b
+>>> kubeadm join 192.168.1.219:6443 --token {{token mới}} --discovery-token-ca-cert-hash sha256:4836150d9f66114c84dd00c6026e99e739dca0083f5098d082fd1d58d226128b
+
+#chọn pv cho service khi run
+selector:
+  matchLabels:
+    name: kafka-pv
+
+kafka-topics.sh --create --topic demo --zookeeper zk-0.zk-svc.default.svc.cluster.local:2181,zk-1.zk-svc.default.svc.cluster.local:2181 --partitions 2 --replication-factor 2
+
+kafka-console-producer.sh --topic demo --broker-list localhost:9093
+    hello
+    I like kafka
+    goodbye
+    bye
+
+zookeeper-shell.sh zk-0.zk-svc.default.svc.cluster.local:2181,zk-1.zk-svc.default.svc.cluster.local:2181 <<< "ls /brokers/ids"
+
+kubectl exec -it zk-0
+cd /opt/zookeeper/bin
+run file zkCli.sh
+to check topic: get /brokers/topics/<topic_name>
+to delete topic: rmr /brokers/topics/<topic_name>
+                 rmr /admin/delete_topics/<topic_name>

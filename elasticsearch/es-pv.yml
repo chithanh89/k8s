@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: v1
+    kind: PersistentVolume
+    metadata:
+      name: es-pv
+      labels:
+        type: local
+    spec:
+      storageClassName: sc-local
+      capacity:
+        storage: 30Gi
+      accessModes:
+        - ReadWriteOnce
+      persistentVolumeReclaimPolicy: Retain
+      hostPath:
+        path: "/home/data/es/data"
+  - apiVersion: v1
+    kind: PersistentVolume
+    metadata:
+      name: es-pv1
+      labels:
+        type: local
+    spec:
+      storageClassName: sc-local
+      capacity:
+        storage: 30Gi
+      accessModes:
+        - ReadWriteOnce
+      persistentVolumeReclaimPolicy: Retain
+      hostPath:
+        path: "/home/data/es/data"
+  - apiVersion: v1
+    kind: PersistentVolume
+    metadata:
+      name: es-pv2
+      labels:
+        type: local
+    spec:
+      storageClassName: sc-local
+      capacity:
+        storage: 30Gi
+      accessModes:
+        - ReadWriteOnce
+      persistentVolumeReclaimPolicy: Retain
+      hostPath:
+        path: "/home/data/es/data"

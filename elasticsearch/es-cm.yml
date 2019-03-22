@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: es-config-node
+data:
+  elasticsearch.yml: |
+    cluster.name: docker-cluster
+    network.host: "0.0.0.0"
+    bootstrap.memory_lock: false
+    discovery.zen.ping.unicast.hosts: ["es-node-0.elasticsearch.default.svc.cluster.local","es-node-1.elasticsearch.default.svc.cluster.local","es-node-2.elasticsearch.default.svc.cluster.local"]
+    discovery.zen.ping.unicast.hosts.resolve_timeout: 20s
+    xpack.security.enabled: false
+    xpack.monitoring.enabled: false

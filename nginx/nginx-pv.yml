@@ -1,0 +1,29 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: nginx-pv  # tên pv
+  labels:
+    type: local
+spec:
+  storageClassName: sc-local  # storage class đã tạo
+  capacity:
+    storage: 10Gi   # dung lượng pv
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/data/nginx/www"  # đường dẫn folder trên host để map vào pod.
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: nginx-pv-conf
+  labels:
+    type: local
+spec:
+  storageClassName: sc-local
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/data/nginx/conf"
