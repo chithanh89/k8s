@@ -1,0 +1,8 @@
+Instructor:
+  - Run order:
+    1.namespace
+    2.es-pv
+    3.es-ss
+    4.es-svc
+    5.kibana
+    6.fluentd

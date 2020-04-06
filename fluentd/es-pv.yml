@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: v1
+    kind: PersistentVolume
+    metadata:
+      name: fluentd-pv
+      labels:
+        type: local
+    spec:
+      storageClassName: sc-local
+      capacity:
+        storage: 3Gi
+      accessModes:
+        - ReadWriteOnce
+      persistentVolumeReclaimPolicy: Retain
+      hostPath:
+        path: "/home/data/fluentd/data"
+  - apiVersion: v1
+    kind: PersistentVolume
+    metadata:
+      name: fluentd-pv0
+      labels:
+        type: local
+    spec:
+      storageClassName: sc-local
+      capacity:
+        storage: 3Gi
+      accessModes:
+        - ReadWriteOnce
+      persistentVolumeReclaimPolicy: Retain
+      hostPath:
+        path: "/home/data/fluentd/data"
+  - apiVersion: v1
+    kind: PersistentVolume
+    metadata:
+      name: fluentd-pv1
+      labels:
+        type: local
+    spec:
+      storageClassName: sc-local
+      capacity:
+        storage: 3Gi
+      accessModes:
+        - ReadWriteOnce
+      persistentVolumeReclaimPolicy: Retain
+      hostPath:
+        path: "/home/data/fluentd/data"
+  - apiVersion: v1
+    kind: PersistentVolume
+    metadata:
+      name: fluentd-pv2
+      labels:
+        type: local
+    spec:
+      storageClassName: sc-local
+      capacity:
+        storage: 3Gi
+      accessModes:
+        - ReadWriteOnce
+      persistentVolumeReclaimPolicy: Retain
+      hostPath:
+        path: "/home/data/fluentd/data"
